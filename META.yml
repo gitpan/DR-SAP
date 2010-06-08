@@ -1,0 +1,28 @@
+---
+abstract: 'SOAP client for the SAP web services'
+author:
+  - 'Brian Phillips <bphillips@digitalriver.com>'
+build_requires:
+  Module::Build: 0.3601
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+  File::ShareDir::Install: 0.03
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 3.101461, CPAN::Meta::Converter version 2.101461'
+license: restrictive
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: DR-SAP
+requires:
+  File::ShareDir: 0
+  Module::Pluggable: 0
+  Moose: 0
+  MooseX::Role::Parameterized: 0
+  MooseX::Types: 0
+  URI: 0
+  XML::Compile: 0
+  XML::Compile::SOAP: 0
+  namespace::autoclean: 0
+version: 0.15

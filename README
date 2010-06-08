@@ -1,0 +1,124 @@
+NAME
+    DR::SAP - SOAP client for the SAP web services
+
+VERSION
+    version 0.15
+
+SYNOPSIS
+            my $sap = DR::SAP->new(
+                    username => $sap_user,
+                    password => $sap_pwd,
+            );
+
+            my $response = $sap->create_vendor(
+                    vendor => {
+                        
+                    }
+            );
+
+ATTRIBUTES
+  username
+    The username to authenticate as when accessing the SAP web service.
+
+  password
+    The password to use when accessing the SAP web service.
+
+  timetout
+  trace
+    The most recent trace object that this client processed. This may be
+    useful if the response can
+
+  transport_hook
+    Provides an opportunity to hook into the transport process (primarily
+    for unit testing). See "Use of the transport hook" in
+    XML::Compile::Transport for more details.
+
+METHODS
+  create_vendor
+    Creates a vendor. All arguments will be passed to
+    "DR::SAP::Operation::Vendor::Create->new". Returns a
+    DR::SAP::Operation::Vendor::Manage::response object.
+
+  update_vendor
+    Updates a vendor. All arguments will be passed to
+    "DR::SAP::Operation::Vendor::Update->new". Returns a
+    DR::SAP::Operation::Vendor::Manage::response object.
+
+  display_vendor
+    Retrieves a vendor. All arguments will be passed to
+    "DR::SAP::Operation::Vendor::Create->new". Returns a
+    DR::SAP::Operation::Vendor::Manage::response object.
+
+  link_vendors
+    Pass in two DR::SAP::Data::Vendor objects (HashRef's will be coerced
+    automatically) to create a link from the first to the second (for funds
+    transfers).
+
+  add_third_party
+    Pass in a DR::SAP::Data::LightweightVendor and DR::SAP::Data::ThirdParty
+    (or something that can be coerced to those, like HashRefs) and this
+    method will create a connection between the two of them.
+
+  get_third_parties
+    Pass in a DR::SAP::Data::LightweightVendor a response object
+    (DR::SAP::Response::ThirdParty) will be returned encapsulating the
+    current third-party payees connected to the vendor account.
+
+  update_third_party
+  check_balance
+    Retrieves a balance. All arguments will be passed to
+    "DR::SAP::Operation::CheckBalance->new". Returns a
+    DR::SAP::Operation::CheckBalance::response object.
+
+  retrieve_open_items
+  get_regions_by_country
+    Returns a HashRef that may vary depending on the arguments passed in. If
+    no arguments are passed in, it returns a HashRef keyed by country codes
+    whose values are HashRefs mapping region codes to region names.
+
+    If a country is passed in, a single-level HashRef is returned mapping
+    region codes to region names.
+
+  get_region_name
+    Accepts a country (code) and region (code) and returns the
+    human-readable name of that region.
+
+  get_region_code
+    Accepts a country (code) and region name and returns the corresponding
+    region code, assuming one exists. A case-insensitive match is performed.
+
+  get_countries
+    Returns a HashRef mapping country codes to names.
+
+  get_country_name
+    Returns a country name for the code that's passed in, if it exists
+
+  get_country_code
+    Returns a country code for the name that's passed in, if it exists
+
+CONFIGURATION
+    SOAP WSDL, endpoint, etc
+        If you would like to use something other than the default endpoint
+        or packaged WSDL file, you may call the following once:
+
+                # these settings will apply to all WSDLs
+                DR::SAP::WSDL::Default->initialize(
+                        endpoint_host => 'some.endpoint.com',
+                        port => 'HTTP' # or HTTPS
+                );
+
+                # this only applies to the individual WSDL file
+                DR::SAP::WSDL::VendorMaintenance->initialize(
+                        file     => '/path/to/VendorMaintenance.wsdl',
+                );
+
+    These may be set for each DR::SAP::WSDL object.
+
+AUTHOR
+      Brian Phillips <bphillips@digitalriver.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by Digital River, Inc
+
+    All rights reserved.
+
